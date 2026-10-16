@@ -1,0 +1,11 @@
+node_modules/
+data/
+*.log
+.env*
+NewJob-backup-*.json
+*.sqlite*
+*.zip
+.DS_Store
+
+dist/
+.netlify/
