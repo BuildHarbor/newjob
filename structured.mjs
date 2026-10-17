@@ -55,6 +55,22 @@ export function taskPrompt(task, input) {
     { role: "user", content: JSON.stringify(input).slice(0, 26000) },
   ];
 }
+export function parseModelJSON(content) {
+  const text = String(content)
+    .trim()
+    .replace(/^```(?:json)?\s*/i, "")
+    .replace(/\s*```$/, "");
+  try {
+    const result = JSON.parse(text);
+    if (!result || typeof result !== "object" || Array.isArray(result))
+      throw Error();
+    return result;
+  } catch {
+    throw Error(
+      "The model did not finish a valid result. Your inputs are preserved. Try a shorter request or use the editable tools.",
+    );
+  }
+}
 export function cleanResult(task, result, input) {
   if (task === "research") {
     return {

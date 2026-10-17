@@ -1,5 +1,10 @@
 import { blankState, validateState, agents } from "../public/core.mjs";
-import { schemas, taskPrompt, cleanResult } from "../structured.mjs";
+import {
+  schemas,
+  taskPrompt,
+  cleanResult,
+  parseModelJSON,
+} from "../structured.mjs";
 const MODEL = "Qwen2.5-1.5B-Instruct-q4f16_1-MLC";
 let engine = null,
   worker = null,
@@ -158,9 +163,6 @@ async function generate(input, structured, signal) {
               : input.task === "research"
                 ? 1100
                 : 900,
-          response_format: {
-            type: "json_object",
-          },
         }),
       );
       let content = "",
@@ -184,7 +186,7 @@ async function generate(input, structured, signal) {
       }
       if (signal?.aborted) throw new DOMException("Stopped", "AbortError");
       return json(
-        cleanResult(input.task, JSON.parse(content), input.context || {}),
+        cleanResult(input.task, parseModelJSON(content), input.context || {}),
       );
     }
     const chunks = await waiting(

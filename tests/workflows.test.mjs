@@ -10,7 +10,27 @@ import {
 } from "../public/workflow-core.mjs";
 import { publicAddress, researchUrl, extractPage } from "../research.mjs";
 import { deckPowerPoint } from "../exports.mjs";
-import { cleanResult } from "../structured.mjs";
+import { cleanResult, parseModelJSON } from "../structured.mjs";
+
+test("browser structured output accepts JSON fences and rejects incomplete or non-object output", () => {
+  assert.deepEqual(
+    parseModelJSON('```json\n{"title":"Draft","content":"Review this."}\n```'),
+    { title: "Draft", content: "Review this." },
+  );
+  assert.deepEqual(parseModelJSON('{"summary":"A hypothesis","problems":[]}'), {
+    summary: "A hypothesis",
+    problems: [],
+  });
+  for (const input of [
+    '{"title":',
+    "null",
+    "[]",
+    "Here is an answer",
+    '{"title":"Done"} trailing',
+  ]) {
+    assert.throws(() => parseModelJSON(input), /inputs are preserved/);
+  }
+});
 
 test("old backups migrate and workflow records round-trip without losing evidence", () => {
   const old = blankState();

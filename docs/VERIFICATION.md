@@ -4,12 +4,13 @@
 
 The expanded release adds company discovery/research, problem hypotheses, career stories, Win Decks, offer lessons and practice, roadmaps and post planning. The layout now uses a blue opportunity navigation bar, career tool rail, company cards and contextual copilot.
 
-- **32 automated tests pass**, including browser IndexedDB persistence and stale-tab protection, private-note isolation, public endpoint boundaries, source URL protection, exact-quote grounding, offer calculations and editable PowerPoint contents.
+- **33 automated tests pass**, including browser IndexedDB persistence and stale-tab protection, private-note isolation, public endpoint boundaries, source URL protection, exact-quote grounding, offer calculations, malformed AI output and editable PowerPoint contents.
 - Syntax, formatting, hosted build and dependency audit pass; zero known dependency vulnerabilities at verification time. The initial main-branch GitHub CI passed on Windows/Ubuntu and Node 22/24.
 - The Netlify service returned **20 company profiles**, **15 job listings**, and a readable GitLab company source with no fetch warnings. Counts reflect the feed at test time.
 - Browser checks covered company discovery, manually saving a target, fetching sources, adding a labeled hypothesis, transferring it into Pitcher, and creating a six-slide editable outline with supplied fictional evidence.
 - The browser downloaded PowerPoint and HTML exports. The downloaded PowerPoint was opened as a ZIP and verified to contain six slides and editable text. A page reload retained the saved deck.
-- Negotiation lesson feedback, annual/first-year/equity separation, counteroffer percentage and successive practice rounds with wording feedback worked with fictional compensation figures.
+- Negotiation lesson feedback, annual/first-year/equity separation, counteroffer percentage and all four practice rounds with wording feedback worked with fictional compensation figures. The practice report downloaded successfully.
+- Six expanded routes (negotiation, Pitcher, companies, stories, roadmaps and posts) were checked at a 390 × 844 viewport with no horizontal page overflow. Desktop and mobile controls remained usable.
 - Browser AI downloaded and loaded Qwen2.5 1.5B, then completed a short streamed copilot response. Initial generation was slow on the test computer. Longer structured research failed during verification; the release now preserves detailed runtime errors and provides immediate worker cancellation/reload recovery. See the current limitations below; do not interpret a loaded model as proof that every AI workflow succeeds on every GPU.
 
 Production: [newjob-career.netlify.app](https://newjob-career.netlify.app). [GitHub CI](https://github.com/Pratikrishi97/newjob/actions/workflows/ci.yml) is authoritative for the latest commit. Personal browser records are not part of the repository or deployment.
