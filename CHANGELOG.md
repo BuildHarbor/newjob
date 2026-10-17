@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.1.0 — 2026-10-16
+## 1.1.0 — 2026-10-17
 
 - Trial-inspired blue layout, company cards, opportunity tabs and copilot panel.
 - Company discovery, source research, grounded problem hypotheses and Win Deck workflows.
@@ -9,6 +9,8 @@
 - Career roadmap and editable professional post planner.
 - Browser storage and WebGPU AI, plus Netlify public-data functions.
 - Expanded storage, grounding, privacy-boundary and export checks.
+- Published the free Netlify edition and verified 33 automated checks.
+- Fixed browser structured generation, retained meaningful runtime errors, and made cancellation recover without losing saved drafts.
 
 ## 1.0.0 — 2026-10-15
 
