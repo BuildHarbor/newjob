@@ -1,6 +1,10 @@
 # Security
 
-NewJob is designed for one person on a trusted local computer. It binds only to loopback, rejects foreign origins and unexpected Host headers, blocks cross-site API reads, validates backup records, escapes rendered text and limits request sizes. These measures do not replace authentication for public hosting. Local malware or other privileged processes are outside this boundary.
+NewJob has two storage modes. The desktop edition is designed for one person on a trusted computer: its server binds only to loopback, rejects foreign origins and unexpected Host headers, validates backup records, escapes rendered text and limits request sizes. Do not expose that server publicly. Local malware or other privileged processes are outside this boundary.
+
+The Netlify edition stores private workspace records in browser IndexedDB and runs optional AI in a WebGPU worker. There is no hosted workspace API or cloud account. Anyone with access to the same browser profile can access its workspace. Export a backup before clearing site storage. The Netlify function only retrieves public company/job data and selected public research URLs; pasted private notes are merged locally. Public URLs and company/news queries, plus ordinary connection metadata, reach hosting and source providers. Only research public URLs, without secrets in their paths or query strings.
+
+The public-source reader validates DNS addresses and redirects, blocks private/reserved destinations, pins the validated address, and limits response size and duration. Hosted functions additionally restrict origins and request rates. These are defense-in-depth measures, not a promise that third-party content or AI output is trustworthy.
 
 Do not commit `data/`, personal exports or secrets. Backups contain resumes, contacts and conversations. Protect them like the originals. Only import documents you trust; parser resource exhaustion remains possible even with input limits. Scanned PDFs are not OCR'd.
 

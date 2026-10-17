@@ -1,5 +1,7 @@
 # Use NewJob
 
+For company research, career evidence, Win Decks, negotiation lessons, roadmaps and post planning, see the [expanded workflow guide](WORKFLOWS.md). The [hosting guide](DEPLOYMENT.md) explains browser AI and backups in the Netlify edition.
+
 ## First run
 
 Install Node.js 22.13 or newer from [nodejs.org](https://nodejs.org/) and [Ollama](https://ollama.com/). Download a model once with `ollama pull qwen2.5:3b`. A model download needs internet and disk space. On the original development computer, Ollama and both Qwen 3B/7B models were already present.

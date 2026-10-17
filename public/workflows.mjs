@@ -83,7 +83,13 @@ export function createWorkflows(a) {
   async function ai(task, context) {
     cancel = new AbortController();
     render();
-    const timer = setTimeout(() => cancel?.abort(), 300000);
+    let timer;
+    const keepAlive = () => {
+      clearTimeout(timer);
+      timer = setTimeout(() => cancel?.abort(), 300000);
+    };
+    keepAlive();
+    window.addEventListener("newjob-ai-progress", keepAlive);
     try {
       return await api("/api/structured", {
         method: "POST",
@@ -92,6 +98,7 @@ export function createWorkflows(a) {
       });
     } finally {
       clearTimeout(timer);
+      window.removeEventListener("newjob-ai-progress", keepAlive);
     }
   }
   const progress = () =>

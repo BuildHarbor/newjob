@@ -11,13 +11,13 @@ A free career workspace with private AI, company research, editable Win Decks an
 [![Node.js](https://img.shields.io/badge/Node.js-22.13%2B-46672c)](https://nodejs.org/)
 [![Local AI](https://img.shields.io/badge/AI-Ollama%20%7C%20local-46672c)](https://ollama.com/)
 
-[Quick start](#quick-start) · [User guide](docs/USAGE.md) · [Feature audit](FEATURES.md) · [Verification](docs/VERIFICATION.md) · [Contribute](CONTRIBUTING.md)
+[Open NewJob — free](https://newjob-career.netlify.app) · [Quick start](#quick-start) · [User guide](docs/USAGE.md) · [Feature audit](FEATURES.md) · [Verification](docs/VERIFICATION.md) · [Contribute](CONTRIBUTING.md)
 
 </div>
 
-![NewJob workspace with fictional demonstration records](docs/images/workspace.jpg)
+![NewJob company discovery workspace](docs/images/workspace.png)
 
-_Actual application screenshot with fictional demo records. A new installation starts empty._
+_Actual application screenshot showing the public company directory. Your private workspace starts empty._
 
 NewJob connects career evidence, company research, applications, pitches and offer preparation. The hosted edition stores your work in your browser and uses optional WebGPU AI. The desktop edition uses SQLite and Ollama. Resume editing, tracking, deck editing and negotiation worksheets work without AI. No paid API key or app subscription is required.
 

@@ -97,6 +97,15 @@ let state = blankState(),
   saveFailed = false,
   pendingSaves = 0,
   toastTimer;
+window.addEventListener("newjob-ai-reset", () => {
+  status = {
+    ...status,
+    aiReady: false,
+    models: [],
+    aiError: "Load browser AI in Settings to continue.",
+  };
+  render();
+});
 let jobFeed = null,
   jobLoading = false,
   jobError = "",

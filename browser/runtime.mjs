@@ -2,6 +2,7 @@ import { blankState, validateState, agents } from "../public/core.mjs";
 import { schemas, taskPrompt, cleanResult } from "../structured.mjs";
 const MODEL = "Qwen2.5-1.5B-Instruct-q4f16_1-MLC";
 let engine = null,
+  worker = null,
   loading = null,
   generating = false,
   dbPromise;
@@ -78,8 +79,9 @@ export async function loadModel(onProgress = () => {}) {
         "No compatible graphics adapter is available. All non-AI tools still work.",
       );
     const { CreateWebWorkerMLCEngine } = await import("@mlc-ai/web-llm");
+    worker = new Worker("/browser-worker.mjs", { type: "module" });
     engine = await CreateWebWorkerMLCEngine(
-      new Worker("/browser-worker.mjs", { type: "module" }),
+      worker,
       MODEL,
       { initProgressCallback: (p) => onProgress(p.text) },
       { context_window_size: 8192 },
@@ -93,11 +95,36 @@ export async function loadModel(onProgress = () => {}) {
   }
 }
 async function generate(input, structured, signal) {
+  signal?.throwIfAborted();
   if (!engine)
     throw Error("Open Settings and load the free browser AI model first.");
   if (generating) throw Error("Another assistant is working. Please wait.");
   generating = true;
-  const abort = () => engine.interruptGenerate();
+  let streaming = false;
+  const abort = () => {
+    engine?.interruptGenerate();
+    worker?.terminate();
+    worker = null;
+    engine = null;
+    window.dispatchEvent(new Event("newjob-ai-reset"));
+  };
+  const waiting = (promise) => {
+    if (!signal) return promise;
+    return new Promise((resolve, reject) => {
+      const stopped = () =>
+        reject(
+          new DOMException(
+            "Stopped. Reload browser AI in Settings to continue.",
+            "AbortError",
+          ),
+        );
+      if (signal.aborted) return stopped();
+      signal.addEventListener("abort", stopped, { once: true });
+      promise
+        .then(resolve, reject)
+        .finally(() => signal.removeEventListener("abort", stopped));
+    });
+  };
   signal?.addEventListener("abort", abort, { once: true });
   try {
     const agent = agents.find((a) => a.id === input.agent);
@@ -120,19 +147,28 @@ async function generate(input, structured, signal) {
         " Required JSON schema: " +
         JSON.stringify(schemas[input.task]) +
         ". Keep all strings concise. Return only the JSON object.";
-      const parts = await engine.chat.completions.create({
-        messages,
-        temperature: 0.25,
-        stream: true,
-        max_tokens:
-          input.task === "deck" ? 1900 : input.task === "research" ? 1100 : 900,
-        response_format: {
-          type: "json_object",
-        },
-      });
+      const parts = await waiting(
+        engine.chat.completions.create({
+          messages,
+          temperature: 0.25,
+          stream: true,
+          max_tokens:
+            input.task === "deck"
+              ? 1900
+              : input.task === "research"
+                ? 1100
+                : 900,
+          response_format: {
+            type: "json_object",
+          },
+        }),
+      );
       let content = "",
         chunks = 0;
-      for await (const part of parts) {
+      const iterator = parts[Symbol.asyncIterator]();
+      while (true) {
+        const { value: part, done } = await waiting(iterator.next());
+        if (done) break;
         if (signal?.aborted) throw new DOMException("Stopped", "AbortError");
         content += part.choices[0]?.delta?.content || "";
         chunks++;
@@ -151,18 +187,24 @@ async function generate(input, structured, signal) {
         cleanResult(input.task, JSON.parse(content), input.context || {}),
       );
     }
-    const chunks = await engine.chat.completions.create({
-      messages,
-      temperature: 0.5,
-      max_tokens: 1400,
-      stream: true,
-    });
+    const chunks = await waiting(
+      engine.chat.completions.create({
+        messages,
+        temperature: 0.5,
+        max_tokens: 1400,
+        stream: true,
+      }),
+    );
     const encoder = new TextEncoder();
+    streaming = true;
     return new Response(
       new ReadableStream({
         async start(controller) {
           try {
-            for await (const part of chunks) {
+            const iterator = chunks[Symbol.asyncIterator]();
+            while (true) {
+              const { value: part, done } = await waiting(iterator.next());
+              if (done) break;
               if (signal?.aborted) break;
               const content = part.choices[0]?.delta?.content;
               if (content)
@@ -175,7 +217,9 @@ async function generate(input, structured, signal) {
             controller.close();
           } catch (ex) {
             controller.enqueue(
-              encoder.encode(JSON.stringify({ error: ex.message }) + "\n"),
+              encoder.encode(
+                JSON.stringify({ error: ex?.message || String(ex) }) + "\n",
+              ),
             );
             controller.close();
           } finally {
@@ -191,7 +235,7 @@ async function generate(input, structured, signal) {
       { headers: { "Content-Type": "application/x-ndjson" } },
     );
   } finally {
-    if (structured) {
+    if (!streaming) {
       generating = false;
       signal?.removeEventListener("abort", abort);
     }
@@ -269,7 +313,9 @@ export async function browserRequest(url, opts = {}) {
     }
     return globalThis.fetch(url, opts);
   } catch (ex) {
-    generating = false;
-    return json({ error: ex.message }, ex.name === "AbortError" ? 499 : 400);
+    return json(
+      { error: ex?.message || String(ex) },
+      ex?.name === "AbortError" ? 499 : 400,
+    );
   }
 }

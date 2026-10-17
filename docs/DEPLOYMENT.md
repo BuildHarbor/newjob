@@ -1,5 +1,7 @@
 # Hosting NewJob
 
+Live site: **https://newjob-career.netlify.app**. Source: **https://github.com/Pratikrishi97/newjob**. Published to the owner's Netlify Free account using the CLI. GitHub CI verifies pushes; deployment is currently manual, not automatically connected to Git pushes.
+
 The hosted edition runs personal storage, resume parsing, presentation export and optional WebGPU AI in the browser. Netlify functions fetch public company/job data and selected public research pages. There is no server workspace database, AI endpoint, upload endpoint or paid model secret.
 
 - Build: `npm run build`
