@@ -21,7 +21,9 @@ _Actual application screenshot showing the public company directory. Your privat
 
 NewJob connects career evidence, company research, applications, pitches and offer preparation. The hosted edition stores your work in your browser and uses optional WebGPU AI. The desktop edition uses SQLite and Ollama. Resume editing, tracking, deck editing and negotiation worksheets work without AI. No paid API key or app subscription is required.
 
-**Hosted first steps:** open Settings → Load free AI model. Browser AI needs WebGPU, roughly 1 GB of downloads and sufficient graphics memory. Export a backup before clearing browser storage. See [the expanded workflow guide](docs/WORKFLOWS.md) and [hosting details](docs/DEPLOYMENT.md).
+**Try it now, without AI:** [open NewJob](https://newjob-career.netlify.app) → add a target company → save a source and a problem hypothesis → build a starter Win Deck → edit and export it. Resume editing, job tracking and negotiation worksheets also work immediately. No signup.
+
+**Add AI when you want it:** Settings → Load free AI model. Browser AI needs WebGPU, roughly 1 GB of downloads and sufficient graphics memory; generation speed depends on your device. Export a backup before clearing browser storage. See [the expanded workflow guide](docs/WORKFLOWS.md) and [hosting details](docs/DEPLOYMENT.md).
 
 ## What you can do
 
@@ -36,17 +38,16 @@ NewJob connects career evidence, company research, applications, pitches and off
 
 ## Quick start
 
-Install [Node.js 22.13+](https://nodejs.org/) and, for AI, [Ollama](https://ollama.com/). Then:
+Install [Node.js 22.13+](https://nodejs.org/). Then:
 
 ```sh
 git clone https://github.com/Pratikrishi97/newjob.git
 cd newjob
 npm ci
-ollama pull qwen2.5:3b
 npm start
 ```
 
-Open **http://127.0.0.1:4317**. Start Ollama if Settings reports it offline. Model downloads are separate from app installation. Start with 3B on modest hardware; larger models use more memory and can improve answers.
+Open **http://127.0.0.1:4317**. For optional AI, install [Ollama](https://ollama.com/), run `ollama pull qwen2.5:3b`, and start Ollama if Settings reports it offline. Model downloads are separate from app installation. Start with 3B on modest hardware; larger models use more memory and can improve answers.
 
 **Windows:** after downloading the source, double-click `Start NewJob.cmd`. It installs missing app dependencies and opens the workspace. You still need Node.js and, for AI, an installed Ollama model.
 
@@ -89,5 +90,7 @@ See [architecture](docs/ARCHITECTURE.md), [verification evidence](docs/VERIFICAT
 ## Help shape the next version
 
 Useful contributions include accessible layouts, regional job coverage, model-output evaluation and stronger import fixtures. See [feature coverage](FEATURES.md) and [contribution guide](CONTRIBUTING.md). Use fictional examples in reports. A star helps discovery; GitHub Trending placement cannot be guaranteed.
+
+Join the [launch discussion](https://github.com/Pratikrishi97/newjob/discussions/5) with feedback on your first workflow, or start with [this small resume-import contribution](https://github.com/Pratikrishi97/newjob/issues/6). The [launch notes](docs/LAUNCH.md) track published announcements and next steps.
 
 [MIT license](LICENSE). Third-party packages and models retain their own licenses.
