@@ -1,5 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import {
   analyzeResume,
   blankState,
@@ -11,6 +12,10 @@ import {
 } from "../public/core.mjs";
 const resume =
   "Alex Example\nalex@example.org\nSUMMARY\nProduct leader who built analytics platforms.\nEXPERIENCE\nLed a team of 12 people and increased activation by 25 percent. Designed a roadmap and delivered experiments.\nSKILLS\nSQL, Python, stakeholder management, product strategy.\nEDUCATION\nBachelor degree.";
+const alternativeHeadingsResume = readFileSync(
+  new URL("./fixtures/alternative-headings-resume.txt", import.meta.url),
+  "utf8",
+);
 test("resume comparison detects real matches and missing terms", () => {
   const r = analyzeResume(resume, "SQL Python Kubernetes leadership roadmap");
   assert(r.found.includes("sql"));
@@ -70,6 +75,14 @@ test("import review detects sections without inventing facts", () => {
   assert(p.experience.includes("25 percent"));
   assert.equal(p.role, "");
   assert.equal(p.resumeText, resume);
+});
+test("import review handles alternative headings and preserves unclassified source", () => {
+  const p = parseResume(alternativeHeadingsResume);
+  assert.equal(p.name, "Morgan Rivers");
+  assert.match(p.summary, /Operations analyst/);
+  assert.match(p.education, /Certified Data Practitioner/);
+  assert.equal(p.resumeText, alternativeHeadingsResume);
+  assert.match(p.resumeText, /Selected Projects\nTransit Access Dashboard/);
 });
 test("backups reject duplicate IDs, broken dates and wrong field types", () => {
   for (const records of [
