@@ -1,0 +1,12 @@
+Morgan Rivers
+morgan.rivers@example.test
+
+Professional Summary
+Operations analyst who turns fictional service data into clear, accessible reports.
+
+Selected Projects
+Transit Access Dashboard
+Built a fictional dashboard that summarized route reliability for a classroom case study.
+
+Certifications
+Certified Data Practitioner, Fictional Institute, 2025
