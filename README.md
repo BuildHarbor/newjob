@@ -6,7 +6,7 @@
 
 A free career workspace with private AI, company research, editable Win Decks and negotiation practice.
 
-[![CI](https://github.com/Pratikrishi97/newjob/actions/workflows/ci.yml/badge.svg)](https://github.com/Pratikrishi97/newjob/actions/workflows/ci.yml)
+[![CI](https://github.com/BuildHarbor/newjob/actions/workflows/ci.yml/badge.svg)](https://github.com/BuildHarbor/newjob/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-46672c.svg)](LICENSE)
 [![Node.js](https://img.shields.io/badge/Node.js-22.13%2B-46672c)](https://nodejs.org/)
 [![Local AI](https://img.shields.io/badge/AI-Ollama%20%7C%20local-46672c)](https://ollama.com/)
@@ -41,7 +41,7 @@ NewJob connects career evidence, company research, applications, pitches and off
 Install [Node.js 22.13+](https://nodejs.org/). Then:
 
 ```sh
-git clone https://github.com/Pratikrishi97/newjob.git
+git clone https://github.com/BuildHarbor/newjob.git
 cd newjob
 npm ci
 npm start
@@ -91,6 +91,6 @@ See [architecture](docs/ARCHITECTURE.md), [verification evidence](docs/VERIFICAT
 
 Useful contributions include accessible layouts, regional job coverage, model-output evaluation and stronger import fixtures. See [feature coverage](FEATURES.md) and [contribution guide](CONTRIBUTING.md). Use fictional examples in reports. A star helps discovery; GitHub Trending placement cannot be guaranteed.
 
-Join the [launch discussion](https://github.com/Pratikrishi97/newjob/discussions/5) with feedback on your first workflow, or start with [this small resume-import contribution](https://github.com/Pratikrishi97/newjob/issues/6). The [launch notes](docs/LAUNCH.md) track published announcements and next steps.
+Join the [launch discussion](https://github.com/BuildHarbor/newjob/discussions/5) with feedback on your first workflow, or start with [this small resume-import contribution](https://github.com/BuildHarbor/newjob/issues/6). The [launch notes](docs/LAUNCH.md) track published announcements and next steps.
 
 [MIT license](LICENSE). Third-party packages and models retain their own licenses.

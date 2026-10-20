@@ -4,10 +4,10 @@ NewJob is a free, MIT-licensed career workspace. The goal of this launch is to h
 
 ## Published on October 18, 2026
 
-- [GitHub launch announcement](https://github.com/Pratikrishi97/newjob/discussions/5): a walkthrough, actual screenshot, privacy details, known limitations and feedback invitation.
+- [GitHub launch announcement](https://github.com/BuildHarbor/newjob/discussions/5): a walkthrough, actual screenshot, privacy details, known limitations and feedback invitation.
 - [X launch post](https://x.com/pratik30409/status/2111653830249369827): links to the app and source, with the live site's share preview.
 - [Reddit SideProject submission](https://www.reddit.com/r/SideProject/comments/1x8sgwl/i_built_newjob_a_free_opensource_career_workspace/): submitted, then removed by Reddit's filters. This is **not an active community placement**. Do not repost it to evade the filter.
-- [First contribution issue](https://github.com/Pratikrishi97/newjob/issues/6): add a fictional resume-import fixture for alternative section headings.
+- [First contribution issue](https://github.com/BuildHarbor/newjob/issues/6): add a fictional resume-import fixture for alternative section headings.
 
 ## Launch improvements
 

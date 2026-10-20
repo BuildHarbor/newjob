@@ -14,7 +14,7 @@ The expanded release adds company discovery/research, problem hypotheses, career
 - Browser AI downloaded and loaded Qwen2.5 1.5B, then completed a short streamed copilot response. Initial structured requests exposed a WebLLM grammar-matcher initialization error. The release removes that failing mode, requests JSON in the prompt and validates the returned object. A live post-generation request then completed and saved an editable draft from the supplied fictional story. Stopping a subsequent request immediately restored usable controls and displayed the model-reload instruction while retaining the saved draft.
 - Browser generation was slow on the test computer. The post-generation and cancellation checks passed after the fix; longer AI research/deck tasks were not individually rerun end to end after that shared runtime change. Source collection, manual hypotheses, editable deck creation/export and negotiation without AI were verified separately. Small-model outputs still need review.
 
-Production: [newjob-career.netlify.app](https://newjob-career.netlify.app). [GitHub CI](https://github.com/Pratikrishi97/newjob/actions/workflows/ci.yml) is authoritative for the latest commit. Personal browser records are not part of the repository or deployment.
+Production: [newjob-career.netlify.app](https://newjob-career.netlify.app). [GitHub CI](https://github.com/BuildHarbor/newjob/actions/workflows/ci.yml) is authoritative for the latest commit. Personal browser records are not part of the repository or deployment.
 
 ## Earlier baseline checks (version 1.0)
 
