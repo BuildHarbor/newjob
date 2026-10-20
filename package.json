@@ -22,7 +22,7 @@
     "ipaddr.js": "^2.5.0",
     "mammoth": "^1.10.0",
     "pdfjs-dist": "^6.4.299",
-    "pptxgenjs": "^4.0.0"
+    "pptxgenjs": "^4.0.1"
   },
   "devDependencies": {
     "esbuild": "^0.28.2",
